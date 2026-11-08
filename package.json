@@ -1,0 +1,25 @@
+{
+  "name": "ferry",
+  "version": "1.0.0",
+  "description": "Instant file sharing across devices on your local network. Nothing is uploaded; files stream straight from the device that shared them.",
+  "type": "module",
+  "main": "server/index.js",
+  "bin": {
+    "ferry": "server/index.js"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js --no-open"
+  },
+  "engines": {
+    "node": ">=20.15"
+  },
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "qrcode": "^1.5.4",
+    "ws": "^8.22.1"
+  }
+}

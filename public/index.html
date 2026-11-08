@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#131312">
+<meta name="color-scheme" content="dark">
+<title>Ferry</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/styles.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<div class="app">
+
+  <section class="send" aria-label="Share from this device">
+    <div class="send-top">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20V4"/><path d="M4.5 7.5 8 4l3.5 3.5"/><path d="M16 4v16"/><path d="M12.5 16.5 16 20l3.5-3.5"/></svg>
+        </span>
+        <span class="brand-name">Ferry</span>
+      </div>
+      <div class="me" id="me">
+        <button class="me-chip" id="me-chip" type="button" title="Rename this device">
+          <span class="me-icon" id="me-icon" aria-hidden="true"></span>
+          <span class="me-name" id="me-name">This device</span>
+          <span class="me-suffix">· this device</span>
+        </button>
+        <form class="me-form" id="me-form" hidden>
+          <label class="sr-only" for="me-input">Device name</label>
+          <input class="me-input" id="me-input" maxlength="40" autocomplete="off" spellcheck="false">
+        </form>
+      </div>
+    </div>
+
+    <div class="send-body">
+      <h1 class="headline">Drop it here.<br>Grab it anywhere.</h1>
+      <p class="lede" id="lede">Files stay on this device. Everyone in the session downloads them straight from it — no cloud, no size limit.</p>
+
+      <div class="dropbox" id="dropbox">
+        <div class="dropbox-row">
+          <div class="drop-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+          </div>
+          <div class="drop-copy">
+            <div class="drop-title" id="drop-title">Drag files or folders onto this panel</div>
+            <div class="drop-sub" id="drop-sub">Any size, any type. Shows up on every device instantly.</div>
+          </div>
+        </div>
+        <div class="drop-actions">
+          <button class="btn-ink" id="pick-files" type="button">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>
+            <span>Choose files</span>
+          </button>
+          <button class="btn-ink-outline" id="pick-folder" type="button">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h3.6l2 2h7.4A2.5 2.5 0 0 1 21 9.5v7a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 16.5z"/></svg>
+            <span>Choose folder</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="send-foot">
+      <div class="qr" id="qr"><img id="qr-img" alt="" width="70" height="70" hidden></div>
+      <div class="addr-wrap">
+        <div class="addr-label">Open on another device</div>
+        <div class="addr" id="addr">…</div>
+      </div>
+      <button class="btn-icon-ink" id="copy-addr" type="button" aria-label="Copy address">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3"/></svg>
+      </button>
+    </div>
+
+    <input type="file" id="file-input" multiple hidden>
+    <input type="file" id="folder-input" webkitdirectory multiple hidden>
+  </section>
+
+  <section class="receive" aria-label="Shared files">
+    <div class="tabs-bar" id="tabs-bar">
+      <div class="tabs" role="tablist" aria-label="Lists">
+        <button class="tab" role="tab" type="button" data-tab="available" aria-selected="true" aria-controls="list">Available<span class="tab-count" id="count-available"></span></button>
+        <button class="tab" role="tab" type="button" data-tab="mine" aria-selected="false" aria-controls="list">My shares<span class="tab-count" id="count-mine"></span></button>
+        <button class="tab" role="tab" type="button" data-tab="activity" aria-selected="false" aria-controls="list">Activity<span class="tab-count" id="count-activity"></span></button>
+      </div>
+      <div class="search">
+        <label class="sr-only" for="search-input">Search shared files</label>
+        <input class="search-input" id="search-input" type="search" placeholder="Search" autocomplete="off" spellcheck="false" hidden>
+        <button class="btn-icon" id="search-toggle" type="button" aria-label="Search" aria-expanded="false">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="list" id="list" role="tabpanel" aria-live="polite"></div>
+
+    <div class="status-bar">
+      <span class="status-item live" id="live"><span class="dot" aria-hidden="true"></span><span id="live-text">Connecting…</span></span>
+      <span class="status-item lan">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.2 3 7.8 7 9.5 4-1.7 7-5.3 7-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span id="online-text">LAN only</span>
+      </span>
+    </div>
+  </section>
+
+</div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+</body>
+</html>
